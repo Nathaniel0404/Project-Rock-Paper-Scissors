@@ -6,7 +6,15 @@
     <title>Document</title>
 </head>
 <body>
-    <script>
+   <div class="container">
+    <button>Rock</button>
+    <button>Scissors</button>
+    <button>Paper</button>
+   </div>
+
+   <script>
+ 
+       
        function getComputerChoice() {
             let index = Math.floor(Math.random() * 3) + 1;
             switch (index) {
@@ -38,6 +46,60 @@
             }
         }
 
+        let computerScore = 0
+        let playerScore = 0
+
+        const playerUI = document.createElement('div');
+        const computerUI = document.createElement('div');
+        const scoreBoard = document.createElement('div');
+        const body = document.querySelector('body');
+        const winMessage = document.createElement('div');
+       
+
+        scoreBoard.appendChild(playerUI);
+        scoreBoard.appendChild(computerUI);
+        body.appendChild(scoreBoard);
+        body.appendChild(winMessage);
+
+        function updateScore() {
+            playerUI.textContent = `Player Score: ${playerScore}`;
+            computerUI.textContent = `Computer Score: ${computerScore}`;
+        }
+
+
+        playerUI.textContent = `player score: ${playerScore}`;
+        computerUI.textContent = `computer score: ${computerScore}`;
+
+        const buttons = document.querySelectorAll('button')
+        buttons.forEach((button => {
+            button.addEventListener('click', () => {
+              
+                console.log(button.textContent)
+               result = gameRound(button.textContent, getComputerChoice());
+                if (result.includes("win")) {
+                    playerScore++ ;
+                    updateScore() ;
+                } else if (result.includes("lose")) {
+                    computerScore++ ;
+                    updateScore() ;
+                } 
+
+                if (playerScore == 5) {
+                   winMessage.textContent = 'You win!';
+                   
+                } else if (computerScore == 5) {
+                   winMessage.textContent = 'You lose!';
+                } else if (computerScore >= 5 || playerScore >= 5) {
+                    winMessage.textContent = '';
+                    playerScore = 0;
+                    computerScore = 0;
+                    updateScore();
+                }
+            });
+
+        }))
+
+
         /* make a function that plays the game for 5 rounds
         function keeps score for both computer and player
         at the end of 5 rounds compare who's the winner
@@ -53,7 +115,7 @@
 
         */
 
-    function game(){
+    /*function game(){
         let playerScore = 0;
         let computerScore = 0;
         
@@ -74,9 +136,9 @@
             } else {
                 console.log("Draw!")
             }
-}
+}*/
 
-game()
+
 
     </script>
 </body>
